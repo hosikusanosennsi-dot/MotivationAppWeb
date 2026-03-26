@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Motivation App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="ui-root">
+  <div id="background_edge">
+    <img src="texture/shadow.png" id="ui-shadow">
+
+    <!-- 単一要素（複製しない） -->
+    <img src="texture/edge-Edit.png" id="edge">
+    <img src="texture/edge.png" id="edgeNo">
+    <img src="texture/name_I test.png" id="nameL">
+    <img src="texture/name_S test.png" id="nameR">
+
+    <div id="D-button">
+      <img src="texture/D-edge.png" id="D-edge">
+      <img src="texture/D1.png" id="D1">
+      <img src="texture/Death.png" id="De">
+      <img src="texture/Indifference.png" id="In">
+      <img src="texture/Greed.png" id="Gr">
+      <img src="texture/Empathy.png" id="Em">
+      <img id="helpS" src="texture/HELPanimation/10.png" style="display: none;">
+      <img id="helpF" src="texture/HELPanimation/1.png" style="display: none;">
+      <img src="texture/Hpicture.png" id="HelpStatic">
+
+    <!-- 右側ボタン（単一） -->
+    <div id="right-buttons">
+      <img src="texture/Edit-A1.png" id="A1">
+      <img src="texture/B1.png" id="B1">
+      <img src="texture/C1.png" id="C1">
+    </div>
+
+    <!-- ★ 技量ブロック（左側） -->
+    <div class="skill-block" data-type="tech">
+
+      <img src="texture/Up_edge_test. ver.png" class="up-edge">
+      <img src="texture/Backtest.png" class="back-panel">
+
+      <div class="timer-wrap">
+        <img class="bar-false2" src="texture/bar_false_.png">
+        <div class="bar-black" tabindex="-1">
+          <img src="texture/bar_false.png" class="bar-false">
+          <img src="texture/bar_true.png" class="bar-true">
+          <div class="timer-display">0h</div>
+          <img src="texture/done.png" class="done" style="display:none;">
+        </div>
+      </div>
+
+      <div class="hour-buttons">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+      </div>
+
+      <div class="point-display-wrapper">
+        <div class="point-display"></div>
+        <img src="texture/Bar_Up_True.png" class="up-true">
+      </div>
+
+      <div class="icon">
+        <img src="texture/skill_off.png" class="skill-off">
+        <img src="texture/skill_on.png" class="skill-on">
+      </div>
+
+    </div>
+
+    <!-- ★ 知力ブロック（右側） -->
+    <div class="skill-block" data-type="int">
+
+      <img src="texture/Up_edge_test. ver.png" class="up-edge">
+      <img src="texture/Backtest.png" class="back-panel">
+
+      <div class="timer-wrap">
+        <img class="bar-false2" src="texture/bar_false.png">
+        <div class="bar-black" tabindex="-1">
+          <img src="texture/bar_false.png" class="bar-false">
+          <img src="texture/bar_true.png" class="bar-true">
+          <div class="timer-display">0h</div>
+          <img src="texture/done.png" class="done" style="display:none;">
+        </div>
+      </div>
+
+      <div class="hour-buttons">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+        <img src="texture/H_false.png" class="hour-btn" data-hour="1">
+      </div>
+
+      <div class="point-display-wrapper">
+        <div class="point-display"></div>
+        <img src="texture/Bar_Up_True.png" class="up-true">
+      </div>
+
+      <div class="icon">
+        <img src="texture/brain_on.png"  class="brain-on">
+        <img src="texture/brain_off.png" class="brain-off">
+      </div>
+
+    </div>
+    
+
+    <!-- テストボタン（単一） -->
+    <button id="reset-point-test">reset</button>
+    <button id="reset-all-test">Reset All</button>
+    <button id="add-test-points">+2000 TEST</button>
+    <button id="reset-timer-test">タイマーリセット</button>
+    <button id="bonus-test-btn" style="position:absolute; top:50px; left:30px; z-index:9999;">BONUS TEST</button>
+ 
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
