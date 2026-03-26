@@ -1,0 +1,552 @@
+/* フォント */
+@font-face {
+  font-family: "myfont";
+  src: url("font/Myfont-Regular.ttf") format("truetype");
+}
+
+/* 画面中央にキャンバス固定 */
+#ui-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+#ui-root *:focus { outline: none; }
+
+body {
+  background-color: #000000; /* ← 完全な黒 */
+
+  background-image:
+    linear-gradient(45deg, rgb(30, 30, 30) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgb(30, 30, 30) 75%);
+
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+
+
+
+
+/* キャンバス本体 */
+#background_edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  z-index: 0;
+}
+
+#edgeNo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  z-index: 0;
+}
+
+#background_edge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 3px;
+  height: 100%;
+  background: black;
+  z-index: 10;
+}
+#ui-shadow {
+  position: absolute;      /* 画面全体に固定 */
+  top: 0;
+  left: 0;
+  width: 1923px;         /* 画面幅いっぱい */
+  height: 1083px;        /* 画面高さいっぱい */
+  pointer-events: none; /* 当たり判定なし */
+  z-index: 9999;        /* 最前面 */
+}
+
+
+/* 左右パネル（背景） */
+#left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 758px;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 名前 */
+#nameR {
+  position: absolute;
+  top: 35px;
+  left: 216px;
+  width: 326px;
+  height: auto;
+  z-index: 11;
+  pointer-events: none;
+}
+#nameL {
+  position: absolute;
+  top: 35px;
+  left: 1000.5px;
+  width: 326px;
+  height: auto;
+  z-index: 11;
+  pointer-events: none;
+}
+
+/* 技量・知力アイコン（単一） */
+.skill-block .icon,
+.skill-block .icon img {
+  pointer-events: none;
+}
+
+.skill-block .icon {
+  position: absolute;
+  top: 210px;
+  left: 10px; /* tech */
+  width: 740px;
+}
+
+.skill-block[data-type="int"] .icon {
+  left: 0px;
+}
+
+.skill-on, .skill-off,
+.brain-on, .brain-off {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* ★ 初期状態：off表示、on非表示 */
+.skill-on,
+.brain-on {
+  opacity: 0;
+  z-index: 2;
+}
+
+.skill-off,
+.brain-off {
+  opacity: 1;
+  z-index: 1;
+}
+
+@keyframes fadeBlink {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+#D-edge {
+  position: absolute;
+  bottom: -1;
+  right: 0px;
+  width: 370px;
+  height: auto;
+  z-index: -1;
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+#D1 {
+  position: absolute;
+  transform: translateY(0px);
+  right: 0px;
+  width: 370px;
+  height: auto;
+  z-index: 19;
+  transition: opacity 0.3s ease; /* フェード用（任意） */
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+
+#Gr {
+  position: absolute;
+  bottom: 1;
+  right: 0px;
+  width: 32px;
+  height: auto;
+  z-index: 20;
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+#In {
+  position: absolute;
+  bottom: 1;
+  right: 338px;
+  width: 32px;
+  height: auto;
+  z-index: 20;
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+#De {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(375px);
+  right: 338px;
+  width: 32px;
+  height: auto;
+  z-index: 20;
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+#Em {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(375px);
+  right: 0px;
+  width: 32px;
+  height: auto;
+  z-index: 20;
+  opacity: 0;           /* 初期状態は透明 */
+  pointer-events: auto; /* クリックは受け付ける */
+  transition: opacity 0s ease; /* 出現時のフェード用 */
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+}
+/* 右側ボタン（単一） */
+#right-buttons {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 341px;
+  height: 1080px;
+  z-index: 2;
+}
+#right-buttons img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+#A1 { top: 0px; }
+#B1 { top: 370px; }
+#C1 { top: 739px; }
+
+#HelpS {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 1920px;
+  height: 1080px;
+  z-index: 11;
+  pointer-events: none;
+}
+#HelpF {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 1920px;
+  height: 1080px;
+  z-index: 11;
+  opacity: 0;
+  pointer-events: none;
+}#HelpStatic {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 1920px;
+  height: 1080px;
+  z-index: 11;
+}
+/* アニメーション関連の画像をすべて同じ位置に */
+#helpS,
+#helpF,
+[src*="HELPanimation/"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  z-index: 11;
+  height: auto; /* または固定値 */
+  /* または object-fit: cover; など */
+}
+/* ★ skill-block（技量・知力の共通枠） */
+.skill-block {
+  position: absolute;
+  top: 0;
+  width: 758px;
+  height: 1080px;
+}
+
+/* 技量（左） */
+.skill-block[data-type="tech"] {
+  left: 0px;
+}
+
+/* 知力（右） */
+.skill-block[data-type="int"] {
+  left: 789px;
+}
+
+/* Up_edge / Back */
+.skill-block .up-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 758px;
+  height: auto;
+  pointer-events: none;
+  z-index: 10; /* ★ 追加 */
+}
+
+.skill-block .back-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 758px;
+  height: auto;
+  pointer-events: none;
+}
+
+
+/* タイマーバー全体 */
+.skill-block .timer-wrap {
+  position: absolute;
+  bottom: 0px; /*barblackなどの縦*/
+  left: 0;
+  width: 758px;
+  height: 154px;
+}
+
+/* 黒バー */
+.skill-block .bar-black {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 758px;
+  height: 154px;
+  background: url("texture/bar_black.png");
+  background-size: 100% 100%;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* falseバー */
+.skill-block .bar-false {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 758px;
+  height: 154px;
+  background: url("texture/bar_false.png");
+  pointer-events: none;
+}
+
+/* trueバー（動く部分） */
+.skill-block .bar-true {
+  position: absolute;
+  bottom: 0;
+  left: -758px;
+  width: 758px;
+  height: 154px;
+  transition: left linear;
+  pointer-events: none;
+}
+
+/* done */
+.skill-block .done {
+  position: absolute;
+  bottom: -14.5px;
+  left: -266px;
+  width: 756.5px;
+  height: 154px;
+  pointer-events: none;
+}
+
+/* タイマー表示 */
+.skill-block .timer-display {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 225px;
+  text-align: center;
+  color: white;
+  font-size: 140px;
+  font-family: "myfont";
+  pointer-events: none;
+}
+
+/* 1h ボタン */
+.skill-block .hour-buttons {
+  position: absolute;
+  bottom: 153px; /*1hボタン縦*/
+  left: 1px;
+  width: 758px;
+  height: 200px;
+}
+.skill-block .hour-btn {
+  position: absolute;
+  bottom: 0;
+  width: 65px;
+  height: auto;
+}
+
+/* 技量・知力どちらも同じ配置（skill-block が左右に分かれているため） */
+.skill-block .hour-btn:nth-child(1) { left: 692px; }
+.skill-block .hour-btn:nth-child(2) { left: 627px; }
+.skill-block .hour-btn:nth-child(3) { left: 562px; }
+.skill-block .hour-btn:nth-child(4) { left: 497px; }
+
+/* ポイント表示 */
+.skill-block .point-display-wrapper {
+  position: absolute;
+  left: 405px;
+  top: 192px;
+  width: 350px;
+  height: 120px;
+  overflow: hidden;
+}
+.skill-block .point-display {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  color: white;
+  font-size: 110px;
+  font-family: "myfont";
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Up_true（バー上昇エフェクト） */
+.skill-block .up-true {
+  position: absolute;
+  top: 0px;
+  left: 302px;
+  width: 700px;
+  height: auto;
+  transition: left linear;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* エフェクト */
+.point-float {
+  position: fixed;
+  color: #ffffff;
+  font-size: 55px;
+  font-weight: bold;
+  font-family: "myfont";
+  pointer-events: none;
+  animation: floatUp 1s ease-out forwards;
+}
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-25px); }
+}
+
+.bonus-float {
+  position: fixed;
+  font-family: "myfont";
+  color: lch(89.05% 75.29 93.76);
+  font-size: 76px;
+  font-weight: bold;
+  pointer-events: none;
+  animation: bonusDown 2s ease-out forwards;
+}
+@keyframes bonusDown {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(30px); }
+}
+.penalty-float {
+  position: fixed;
+  font-family: "myfont";
+  color: lch(49.48% 81.09 34.23);
+  font-size: 76px;
+  font-weight: bold;
+  pointer-events: none;
+  animation: penaltyDown 3s ease-out forwards;
+}
+@keyframes penaltyDown {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(35px); }
+}
+
+/* テストボタン */
+#reset-point-test,
+#reset-all-test,
+#reset-timer-test {
+  position: absolute;
+  right: 100px;
+  z-index: 9;
+  padding: 5px 10px;
+  font-size: 14px;
+  display: none !important;
+}
+#reset-point-test { top: 20px; }
+#reset-all-test { top: 50px; }
+#reset-timer-test { top: 80px; }
+
+img, button { outline: none; }
+img:focus, button:focus { outline: none; }
+* { -webkit-tap-highlight-color: transparent; }
+#ui-root * {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+#add-test-points {
+  padding: 6px 12px;
+  font-size: 14px;
+  background: #444;
+  color: white;
+  border: 1px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none !important;
+}
+
+#add-test-points:hover {
+  background: #666;
+  display: none !important;
+}
+
+#bonus-test-btn {
+  display: none !important;
+}
+/* ファイルの最後に追加 */
+/* === ピクセルアート完全保持 === */
+#background_edge,
+#background_edge * {
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+  -ms-interpolation-mode: nearest-neighbor !important;
+}
+
+/* フォントには影響させない */
+.point-display,
+.timer-display,
+.point-float,
+.bonus-float,
+.penalty-float {
+  image-rendering: auto !important;  /* フォントは通常表示 */
+}
+/* すべての画像に適用 */
+#background_edge img {
+  image-rendering: crisp-edges;  /* ファイアフォックス */
+  image-rendering: pixelated;    /* クローム */
+  -ms-interpolation-mode: nearest-neighbor; /* IE */
+}
+/* まずは全 img に対して徹底的に指定 */
+img {
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: -webkit-optimize-contrast !important;
+  -ms-interpolation-mode: nearest-neighbor !important;
+}
